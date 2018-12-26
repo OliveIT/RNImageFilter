@@ -21,6 +21,19 @@ const style = {
         thumbImage: {
             padding: window.width / 250
         }
+    },
+
+    takePhoto: {
+        content: {
+            flex: 1,
+            flexDirection: "vertical",
+            justifyContent: 'center',
+        },
+        vCenterContent: {
+            justifyContent: 'center',
+            background: "#f00",
+            height: 100
+        }
     }
 };
 

@@ -1,13 +1,16 @@
 import * as React from 'react';
+import { connect } from "react-redux";
 import { View, StyleSheet, Dimensions, TouchableOpacity, Image, CameraRoll, Button, ScrollView, FlatList } from 'react-native';
 import style from '../../style';
+
+import { setUri } from "../../actions";
 
 var window = Dimensions.get('window');
 var columnCount = 4;
 
 class Gallery extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             photos: [],
             mainImageUri: 0,
@@ -27,8 +30,11 @@ class Gallery extends React.Component {
                 });
             
             var mainImageUri = null;
-            if (photos.length)
+            if (photos.length) {
                 mainImageUri = photos [0].uri;
+                if (!this.props.uri)
+                    this.props.setUri(mainImageUri);
+            }
             this.setState({ 
                 photos: photos,
                 mainImageUri: mainImageUri });
@@ -42,9 +48,11 @@ class Gallery extends React.Component {
         this.setState({
             mainImageUri: photo.uri
         });
+        this.props.setUri(photo.uri);
     }
 
     render() {
+        console.log(this.props);
         return (
         <View>
             <ScrollView>
@@ -79,4 +87,14 @@ class Gallery extends React.Component {
   }
 }
 
-export default Gallery;
+
+const mapStateToProps = state => ({
+    uri: state.selectionInfo.uri
+});
+
+export default connect(
+    mapStateToProps,
+    {
+        setUri
+    }
+)(Gallery);
