@@ -25,14 +25,47 @@ const style = {
 
     takePhoto: {
         content: {
-            flex: 1,
-            flexDirection: "vertical",
-            justifyContent: 'center',
+            width: window.width,
+            height: window.height * 0.8,
         },
         vCenterContent: {
+            flex: 1,
+            flexDirection: "column",
             justifyContent: 'center',
-            background: "#f00",
-            height: 100
+
+            height: 100,
+            width: window.width,
+            paddingHorizontal: window.width * 0.05
+        },
+        imageContent: {
+            width: window.width * 0.9,
+            height: window.width * 0.9,
+            backgroundColor: "#ddd",
+            flexDirection: "column",
+            justifyContent: 'center'
+        },
+        image: {
+            width: window.width * 0.9,
+            height: window.width * 0.9,
+        },
+        defaultImage: {
+            width: window.width * 0.3,
+            height: window.width * 0.3,
+            margin: window.width * 0.3,
+            opacity: 0.3
+        },
+        button: {
+            borderRadius: 50,
+            backgroundColor: '#0081e0',
+            width: window.width * 0.9,
+            marginTop: window.width * 0.05
+        },
+        buttonText: {
+            fontSize: 20,
+            color: "#fff",
+            textAlign: "center",
+            width: window.width * 0.9,
+            padding: window.width * 0.02
         }
     }
 };
