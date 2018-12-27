@@ -11,6 +11,7 @@
     "react-native": "^0.57.8",
     "react-native-camera": "^1.6.4",
     "react-native-camera-roll-picker": "^1.2.3",
+    "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.0.12",
     "react-native-image-crop-picker": "^0.21.3",
     "react-native-image-picker": "^0.27.2",

@@ -23,6 +23,7 @@ class Gallery extends React.Component {
             assetType: 'Photos',
         })
         .then(r => {
+            console.log(r);
             var photos = [];
             for (var i = 0; i < 30; i ++)
                 r.edges.map(value => {
