@@ -24,10 +24,9 @@ class Gallery extends React.Component {
         })
         .then(r => {
             var photos = [];
-            for (var i = 0; i < 30; i ++)
-                r.edges.map(value => {
-                    photos.push(value.node.image);
-                });
+            r.edges.map(value => {
+                photos.push(value.node.image);
+            });
             
             var mainImageUri = null;
             if (photos.length) {
@@ -70,6 +69,7 @@ class Gallery extends React.Component {
                     data={this.state.photos}
                     numColumns={columnCount}
                     style={style.gallery.list}
+                    extraData={this.props.uri}
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             onPress={() => this.onSelect(item)}

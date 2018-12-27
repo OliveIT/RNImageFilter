@@ -27,7 +27,9 @@ class TakePhoto extends React.Component {
         console.log(response);
         if (!response.uri) return;
 
-        this.props.setUri(response.uri);
+        this.props.setUri({
+            origin: response.uri
+        });
         this.setState({
             uri: response.uri
         })
@@ -42,8 +44,8 @@ class TakePhoto extends React.Component {
                     style={style.takePhoto.imageContent}
                 >
                     {
-                    this.state.uri ?
-                        <Image source={{uri: this.state.uri}}
+                    this.props.uri.origin ?
+                        <Image source={{uri: this.props.uri.origin}}
                             style={style.takePhoto.image}/>
                         :
                         <Image source={cameraImage}
