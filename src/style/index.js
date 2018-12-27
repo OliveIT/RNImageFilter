@@ -67,6 +67,22 @@ const style = {
             width: window.width * 0.9,
             padding: window.width * 0.02
         }
+    },
+
+    crop: {
+        content: {
+            width: window.width,
+            height: window.height * 0.8,
+        },
+        cropContent: {
+            width: window.width,
+            height: window.width,
+        },
+        defaultImage: {
+            width: window.width * 0.4,
+            height: window.width * 0.4,
+            margin: window.width * 0.3
+        }
     }
 };
 

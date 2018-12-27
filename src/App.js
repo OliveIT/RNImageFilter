@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 
 import SelectRoute from './pages/select';
+import EditRoute from './pages/edit';
  
 /*const FirstRoute = () => (
   <View style={[styles.scene, { backgroundColor: '#ff4081' }]}>
@@ -22,7 +23,7 @@ export default class App extends React.Component {
     index: 0,
     routes: [
       { key: 'first', title: 'select' },
-//      { key: 'second', title: 'Edit' },
+      { key: 'second', title: 'Edit' },
 //      { key: 'third', title: 'share' },
     ],
   };
@@ -33,6 +34,7 @@ export default class App extends React.Component {
         navigationState={this.state}
         renderScene={SceneMap({
           first: SelectRoute,
+          second: EditRoute
         })}
         onIndexChange={index => this.setState({ index })}
         initialLayout={{ width: Dimensions.get('window').width }}
@@ -40,9 +42,3 @@ export default class App extends React.Component {
     );
   }
 }
- 
-const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
-});

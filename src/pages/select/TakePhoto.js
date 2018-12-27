@@ -51,9 +51,9 @@ class TakePhoto extends React.Component {
                     }
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={style.takePhoto.button}>
-                    <Text style={style.takePhoto.buttonText}
-                    onPress={() => this.onTakePhoto()}>take photo</Text>
+                    style={style.takePhoto.button}
+                    onPress={() => this.onTakePhoto()}>
+                    <Text style={style.takePhoto.buttonText}>take photo</Text>
                 </TouchableOpacity>
             </View>
         </View>
