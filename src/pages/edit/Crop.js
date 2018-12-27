@@ -12,14 +12,12 @@ class CropPage extends React.Component {
       super(props);
   }
 
-  onPressImage() {
-    /*ImagePicker.openCropper({
-        path: 'my-file-path.jpg',
-        width: 300,
-        height: 400
+  async onPressImage() {
+    ImagePicker.openCropper({
+        path: this.props.uri,
     }).then(image => {
-        console.log(image);
-    });*/
+        this.props.setUri(image.path);
+    });
   }
 
   onPressOk() {
