@@ -10,37 +10,60 @@ const cloudImage = require('../../assets/cloud.png');
 class CropPage extends React.Component {
   constructor(props) {
       super(props);
+      this.state = {
+          uri: null
+      }
   }
 
-  async onPressImage() {
+  onPressImage() {
     ImagePicker.openCropper({
-        path: this.props.uri,
+        path: this.props.uri.origin,
     }).then(image => {
-        this.props.setUri(image.path);
+        this.setState({
+            uri: image.path
+        });
     });
   }
 
   onPressOk() {
+    this.props.setUri({
+        origin: this.props.uri.origin,
+        crop: this.state.uri
+    });
+    this.setState({
+        uri: null
+    })
+  }
 
+  getImageUri() {
+      if (!this.state.uri && !this.props.uri) return null;
+      if (this.state.uri)   return this.state.uri;
+      return this.props.uri.crop ? this.props.uri.crop : this.props.uri.origin;
   }
   
   render() {
+    console.log(this.props.uri, this.getImageUri());
     return (
         <View style={style.crop.content}>
             {
-            this.props.uri ? 
+            this.state.uri || this.props.uri ? 
             <View>
                 <TouchableOpacity style={style.crop.cropContent}
                     onPress={() => this.onPressImage()}>
-                    <Image source={{uri: this.props.uri}}
+                    <Image source={{uri: this.getImageUri() }}
                         style={style.crop.cropContent}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={style.takePhoto.button}
-                    onPress={() => this.onPressOk()}>
-                    <Text style={style.takePhoto.buttonText}>Ok</Text>
-                </TouchableOpacity>
+
+                <View style={style.crop.btnContent}>
+                    <View style={style.crop.btnSmContent}>
+                        <TouchableOpacity
+                            style={style.crop.button}
+                            onPress={() => this.onPressOk()}>
+                            <Text style={style.takePhoto.buttonText}>Ok</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View> : 
             <Image source={cloudImage} style={style.crop.defaultImage}/>
             }

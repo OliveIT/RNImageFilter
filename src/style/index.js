@@ -78,10 +78,26 @@ const style = {
             width: window.width,
             height: window.width,
         },
+        btnContent: {
+            width: window.width,
+            height: window.height * 0.8 - window.width
+        },
         defaultImage: {
             width: window.width * 0.4,
             height: window.width * 0.4,
             margin: window.width * 0.3
+        },
+        btnSmContent: {
+            width: window.width * 0.9,
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: 'center',
+        },
+        button: {
+            borderRadius: 50,
+            backgroundColor: '#0081e0',
+            width: window.width * 0.9,
+            marginHorizontal: window.width * 0.05
         }
     }
 };

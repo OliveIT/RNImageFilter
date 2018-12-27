@@ -23,7 +23,6 @@ class Gallery extends React.Component {
             assetType: 'Photos',
         })
         .then(r => {
-            console.log(r);
             var photos = [];
             for (var i = 0; i < 30; i ++)
                 r.edges.map(value => {
@@ -34,7 +33,9 @@ class Gallery extends React.Component {
             if (photos.length) {
                 mainImageUri = photos [0].uri;
                 if (!this.props.uri)
-                    this.props.setUri(mainImageUri);
+                    this.props.setUri({
+                        origin: mainImageUri,
+                    });
             }
             this.setState({ 
                 photos: photos,
@@ -49,11 +50,12 @@ class Gallery extends React.Component {
         this.setState({
             mainImageUri: photo.uri
         });
-        this.props.setUri(photo.uri);
+        this.props.setUri({
+            origin: photo.uri,
+        });
     }
 
     render() {
-        console.log(this.props);
         return (
         <View>
             <ScrollView>
