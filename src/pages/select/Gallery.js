@@ -6,7 +6,7 @@ import style from '../../style';
 import { setUri } from "../../actions";
 
 var window = Dimensions.get('window');
-var columnCount = 4;
+var columnCount = 5;
 
 class Gallery extends React.Component {
     constructor(props) {
@@ -76,8 +76,8 @@ class Gallery extends React.Component {
                             style={style.gallery.thumbImage}>
                             <Image
                                 style={{
-                                    width: window.width / columnCount,
-                                    height: window.width / columnCount,
+                                    width: window.width / columnCount - window.width / 250 * 1.6,
+                                    height: window.width / columnCount - window.width / 250 * 1.6,
                                 }}
                                 source={{ uri: item.uri }}
                                 />

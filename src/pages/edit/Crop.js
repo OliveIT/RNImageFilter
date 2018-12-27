@@ -46,7 +46,7 @@ class CropPage extends React.Component {
     return (
         <View style={style.crop.content}>
             {
-            this.state.uri || this.props.uri ? 
+            this.getImageUri() ? 
             <View>
                 <TouchableOpacity style={style.crop.cropContent}
                     onPress={() => this.onPressImage()}>

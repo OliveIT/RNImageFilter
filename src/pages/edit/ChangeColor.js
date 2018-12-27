@@ -1,48 +1,28 @@
 import * as React from 'react';
 import { connect } from "react-redux";
-import { View, StyleSheet, Dimensions, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, Image, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {
-    Grayscale,
-    Sepia,
-    Tint,
-    ColorMatrix,
-    concatColorMatrices,
-    invert,
-    contrast,
-    saturate
-  } from 'react-native-color-matrix-image-filters';
+    GrayscaledImage,
+    SepiaFilterImage,
+    TintFilterImage,
+    ColorMatrixImage
+} from './Filters';
 import style from '../../style';
 import { setUri } from "../../actions";
 
 const cloudImage = require('../../assets/cloud.png');
- 
+
+var window = Dimensions.get('window');
+var columnCount = 5;
 class ChangeColor extends React.Component {
+  filters = [GrayscaledImage, SepiaFilterImage, TintFilterImage, ColorMatrixImage];
+
   constructor(props) {
       super(props);
       this.state = {
           uri: null
       }
-  }
-
-  onPressImage() {
-    ImagePicker.openCropper({
-        path: this.props.uri.origin,
-    }).then(image => {
-        this.setState({
-            uri: image.path
-        });
-    });
-  }
-
-  onPressOk() {
-    this.props.setUri({
-        origin: this.props.uri.origin,
-        crop: this.state.uri
-    });
-    this.setState({
-        uri: null
-    })
   }
 
   getImageUri() {
@@ -52,30 +32,43 @@ class ChangeColor extends React.Component {
       if (this.props.uri.crop)  return this.props.uri.crop;
       return this.props.uri.origin;
   }
+
+  onSelect() {
+
+  }
   
   render() {
     return (
-        <View style={style.crop.content}>
+        <View>
             {
-            this.state.uri || this.props.uri ? 
-            <View>
-                <TouchableOpacity style={style.crop.cropContent}
-                    onPress={() => this.onPressImage()}>
-                    <Image source={{uri: this.getImageUri() }}
-                        style={style.crop.cropContent}
+            this.getImageUri() ? 
+            <ScrollView>
+                <View>
+                    <Image
+                        source={{ uri: this.getImageUri() }}
+                        style={style.gallery.mainImage}
                     />
-                </TouchableOpacity>
-
-                <View style={style.crop.btnContent}>
-                    <View style={style.crop.btnSmContent}>
-                        <TouchableOpacity
-                            style={style.crop.button}
-                            onPress={() => this.onPressOk()}>
-                            <Text style={style.takePhoto.buttonText}>This is Change</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
-            </View> : 
+                
+                <FlatList
+                    data={this.filters}
+                    numColumns={columnCount}
+                    style={style.gallery.list}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() => this.onSelect(item)}
+                            style={style.gallery.thumbImage}>
+                            {item({ 
+                                style:{
+                                    width: window.width / columnCount - window.width / 250 * 1.6,
+                                    height: window.width / columnCount - window.width / 250 * 1.6,
+                                },
+                                source:{ uri: this.getImageUri() }
+                            })}
+                        </TouchableOpacity>
+                    )}
+                />
+            </ScrollView> : 
             <Image source={cloudImage} style={style.crop.defaultImage}/>
             }
         </View>
