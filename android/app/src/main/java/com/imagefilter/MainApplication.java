@@ -3,6 +3,7 @@ package com.imagefilter;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import iyegoroff.RNColorMatrixImageFilters.RNColorMatrixImageFiltersPackage;
 import com.rnfs.RNFSPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNColorMatrixImageFiltersPackage(),
             new RNFSPackage(),
             new PickerPackage(),
             new ImagePickerPackage()

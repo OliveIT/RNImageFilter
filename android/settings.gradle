@@ -1,4 +1,6 @@
 rootProject.name = 'imagefilter'
+include ':react-native-color-matrix-image-filters'
+project(':react-native-color-matrix-image-filters').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-color-matrix-image-filters/android')
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
 include ':react-native-image-crop-picker'

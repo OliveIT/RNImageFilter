@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-color-matrix-image-filters')
     compile project(':react-native-fs')
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-image-picker')

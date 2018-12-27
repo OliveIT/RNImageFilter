@@ -2,6 +2,16 @@ import * as React from 'react';
 import { connect } from "react-redux";
 import { View, StyleSheet, Dimensions, Text, Image, TouchableOpacity } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import {
+    Grayscale,
+    Sepia,
+    Tint,
+    ColorMatrix,
+    concatColorMatrices,
+    invert,
+    contrast,
+    saturate
+  } from 'react-native-color-matrix-image-filters';
 import style from '../../style';
 import { setUri } from "../../actions";
 
