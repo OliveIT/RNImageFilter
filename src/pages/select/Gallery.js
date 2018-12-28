@@ -45,12 +45,15 @@ class Gallery extends React.Component {
         });
     };
 
+    lastFilterIndex = 0;
     onSelect(photo) {
         this.setState({
             mainImageUri: photo.uri
         });
+        this.lastFilterIndex = 1 - this.lastFilterIndex;
         this.props.setUri({
             origin: photo.uri,
+            filter: this.lastFilterIndex
         });
     }
 
