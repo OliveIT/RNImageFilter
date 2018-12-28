@@ -119,7 +119,7 @@ class ChangeColor extends React.Component {
             this.getImageUri() ? 
             <ScrollView>
                 <View>
-                    <CurFilter>
+                    <CurFilter isTarget={false}>
                         <Image
                             source={{ uri: this.getImageUri() }}
                             style={style.gallery.mainImage}
@@ -137,7 +137,7 @@ class ChangeColor extends React.Component {
                         return (<TouchableOpacity
                             onPress={() => this.onSelect(index, item)}
                             style={style.gallery.thumbImage}>
-                            {<Filter>
+                            {<Filter isTarget={false}>
                                 <Image 
                                 style={{
                                     width: window.width / columnCount - window.width / 250 * 1.6,

@@ -140,7 +140,6 @@ class Share extends React.Component {
     }, 10);
   }
 
-
   onSendPost() {
     console.log(this.filter);
 
@@ -172,7 +171,7 @@ class Share extends React.Component {
                     this.getImageUri() ?
                         // <Canvas style={style.takePhoto.image}
                         //     ref={ref => this.handleCanvas(ref)}></Canvas>
-                        <CurFilter>
+                        <CurFilter isTarget={true}>
                             <Image source={{uri: this.getImageUri()}}
                             style={style.takePhoto.image}
                             ref={ref => this.filter = ref}/>
