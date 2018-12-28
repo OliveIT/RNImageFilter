@@ -5,6 +5,8 @@ import ImagePicker from 'react-native-image-picker';
 import style from '../../style';
 import { setUri } from "../../actions";
 import Canvas, {Image as CanvasImage} from 'react-native-canvas';
+import BatchedBridge from "react-native/Libraries/BatchedBridge/BatchedBridge";
+
 
 import {
     Normal,
@@ -43,6 +45,8 @@ import {
     Achromatopsia,
     Achromatomaly
 } from 'react-native-color-matrix-image-filters';
+
+import ExposedToJava from './ExposedToJava';
 
 const cameraImage = require('../../assets/camera.png');
  
@@ -91,6 +95,11 @@ class Share extends React.Component {
       this.state = {
           uri: null
       }
+  }
+
+  componentWillMount() {
+    const exposedToJava = new ExposedToJava(callbackFnc);
+    BatchedBridge.registerCallableModule("JavaScriptVisibleToJava", exposedToJava);
   }
 
   getImageUri() {
