@@ -4,6 +4,7 @@ import { View, StyleSheet, Dimensions, Text, Image, TouchableOpacity, TextInput 
 import ImagePicker from 'react-native-image-picker';
 import style from '../../style';
 import { setUri } from "../../actions";
+import Canvas, {Image as CanvasImage} from 'react-native-canvas';
 
 import {
     Normal,
@@ -83,6 +84,7 @@ class Share extends React.Component {
     Achromatomaly];
 
   filter = null;
+  canvas = null;
 
   constructor(props) {
       super(props);
@@ -96,6 +98,48 @@ class Share extends React.Component {
       if (this.props.uri.crop)  return this.props.uri.crop;
       return this.props.uri.origin;
   }
+
+  handleCanvas(canvas) {
+    if (this.canvas == null) {
+        this.canvas = canvas;
+        this.drawCanvas();
+    } else
+        this.canvas = canvas;
+  }
+
+  drawCanvas() {
+    window.setTimeout(() => {
+        if (this.canvas == null)    return;
+
+        const ctx = this.canvas.getContext('2d');
+        ctx.fillStyle = 'purple';
+        ctx.fillRect(0, 0, 100, 100);
+        
+        const image = new CanvasImage(this.canvas);
+        image.src = this.getImageUri();
+        image.uri = this.getImageUri();
+        image.url = this.getImageUri();
+
+        console.log(cameraImage);
+
+        console.log(image);
+
+        image.addEventListener('load', () => {
+    //        debugger
+            console.log('image is loaded');
+            context.drawImage(image, 0, 0, 100, 100);
+        });
+        image.onload = () => {
+        //        debugger
+            console.log('image is loaded_onload');
+            context.drawImage(image, 0, 0, 100, 100);
+        }
+
+        var data = ctx.getImageData(0, 0, 200, 200);
+        console.log(data);
+    }, 10);
+  }
+
 
   onSendPost() {
     console.log(this.filter);
@@ -117,7 +161,7 @@ class Share extends React.Component {
   
   render() {
     let CurFilter = this.filters [this.props.uri.filter ? this.props.uri.filter : 0];
-    console.log(CurFilter);
+//    this.drawCanvas();
     return (
         <View style={style.share.content}>
             <View style={style.share.vCenterContent}>
@@ -126,6 +170,8 @@ class Share extends React.Component {
                 >
                     {
                     this.getImageUri() ?
+                        // <Canvas style={style.takePhoto.image}
+                        //     ref={ref => this.handleCanvas(ref)}></Canvas>
                         <CurFilter>
                             <Image source={{uri: this.getImageUri()}}
                             style={style.takePhoto.image}
