@@ -104,28 +104,24 @@ const style = {
     share: {
         content: {
             width: window.width,
-            height: window.height * 0.9,
+            flex: 1,
         },
         vCenterContent: {
             flex: 1,
             flexDirection: "column",
             justifyContent: 'center',
 
-            height: window.height * 0.8,
             width: window.width,
             paddingHorizontal: window.width * 0.05
         },
         btnSmContent: {
             width: window.width,
-            height: window.height * 0.09,
             flexDirection: "column",
             justifyContent: 'center',
         },
         bottomBtn: {
             width: window.width,
-            height: window.height * 0.09,
             backgroundColor: "#0081e0",
-            flex: 1,
             flexDirection: "column",
             justifyContent: 'center',
         },
@@ -133,9 +129,6 @@ const style = {
             fontSize: 15,
             color: "#fff",
             textAlign: "center",
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: 'center',
             paddingVertical: window.height * 0.015,
         }
     }

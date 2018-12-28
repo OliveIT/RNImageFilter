@@ -100,7 +100,6 @@ class ChangeColor extends React.Component {
 
   getImageUri() {
       if (!this.props.uri.origin) return null;
-      if (this.props.uri.color) return this.props.uri.color;
       if (this.props.uri.crop)  return this.props.uri.crop;
       return this.props.uri.origin;
   }
