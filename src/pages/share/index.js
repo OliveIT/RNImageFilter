@@ -114,10 +114,7 @@ class Share extends React.Component {
   async onSendPost() {
     if (this.getImageUri() == null) return;
     if (!await RNFS.exists(this.targetPath))   return;
-//    if (this.base64Data == null)    return;
-
-//    const tempPath = RNFS.ExternalCachesDirectoryPath + "/temp.jpg";
-//    await RNFS.writeFile(tempPath, this.base64Data, 'base64');
+    
     const tempPath = this.targetPath;
 
     let newFileUri = `file://${tempPath}`;
