@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { connect } from "react-redux";
-import { View, StyleSheet, Dimensions, Text, Image, TouchableOpacity, TextInput, DeviceEventEmitter } from 'react-native';
+import { View, 
+    StyleSheet, 
+    Dimensions, 
+    Text, 
+    Image, 
+    TouchableOpacity, 
+    TextInput, 
+    Platform } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import style from '../../style';
 import { setUri } from "../../actions";
@@ -85,26 +92,17 @@ class Share extends React.Component {
     Achromatopsia,
     Achromatomaly];
 
-  base64Data = null;
+  targetPath = null;
 
   constructor(props) {
       super(props);
-      this.state = {
-          uri: null
-      }
   }
 
-  componentDidMount() {
-    const _this = this;
-    DeviceEventEmitter.addListener('setImageBufferBase64', function (e) {
-        console.log("length", e.data.length, this);
-        _this.setImageBufferBase64(e);
-    });
-  }
-
-  setImageBufferBase64(e) {
-    this.base64Data = e.data;
-//        uri: "data:image/png;base64," + e.data
+  componentWillMount() {
+    if (Platform.OS == 'android')
+      this.targetPath = RNFS.ExternalCachesDirectoryPath + "/temp.jpg";
+    else if (Platform.OS == 'ios')
+      this.targetPath = RNFS.CachesDirectoryPath + "/temp.jpg";
   }
 
   getImageUri() {
@@ -115,10 +113,12 @@ class Share extends React.Component {
 
   async onSendPost() {
     if (this.getImageUri() == null) return;
-    if (this.base64Data == null)    return;
+    if (!await RNFS.exists(this.targetPath))   return;
+//    if (this.base64Data == null)    return;
 
-    const tempPath = RNFS.ExternalCachesDirectoryPath + "/temp.jpg";
-    await RNFS.writeFile(tempPath, this.base64Data, 'base64');
+//    const tempPath = RNFS.ExternalCachesDirectoryPath + "/temp.jpg";
+//    await RNFS.writeFile(tempPath, this.base64Data, 'base64');
+    const tempPath = this.targetPath;
 
     let newFileUri = `file://${tempPath}`;
 
@@ -140,9 +140,9 @@ class Share extends React.Component {
       method: 'post',
       body: data
     }).then(res => {
-        console.log(res);
+        console.log("Success", res);
     }).catch(e => {
-        console.log(e);
+        console.log("Error", e);
     });
   }
 
@@ -158,7 +158,8 @@ class Share extends React.Component {
                 >
                     {
                     this.getImageUri() ?
-                        <CurFilter isTarget={true}>
+                        <CurFilter isTarget={true}
+                            targetPath={this.targetPath}>
                             <Image source={{uri: this.getImageUri()}}
                             style={style.takePhoto.image}/>
                         </CurFilter>
@@ -166,10 +167,6 @@ class Share extends React.Component {
                         <Image source={cameraImage}
                             style={style.takePhoto.defaultImage}/>
                     }
-                    {this.state.uri ?
-                    <Image source={{uri: this.state.uri}}
-                            style={style.takePhoto.image}/>
-                    : null }
                 </View>
                 <TextInput
                     ref="inputCaption"
